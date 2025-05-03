@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools Directory</title>
+  <!-- Google Fonts for a modern look -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <meta name="keywords" content="best ai tool directory, ai tools, best ai tools, ai directory, ai tool list, artificial intelligence tools, ai software, ai apps, ai resources, ai utilities">
+  <style>
+    /* Reset some default styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f7f9fb;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #2d3748;
+      color: #fff;
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+    }
+    .search-bar {
+      margin: 2rem auto 1rem auto;
+      max-width: 400px;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border 0.2s;
+    }
+    .search-bar input:focus {
+      border: 1.5px solid #4299e1;
+      outline: none;
+    }
+    .search-bar select {
+      padding: 0.7rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      font-size: 1rem;
+    }
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .admob-placeholder {
+      width: 100%;
+      min-height: 90px;
+      background: #e2e8f0;
+      border: 2px dashed #a0aec0;
+      color: #718096;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem 0;
+      color: #2d3748;
+      letter-spacing: 0.5px;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .tool-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 6px 18px rgba(66,153,225,0.10);
+    }
+    .tool-logo {
+      width: 48px;
+      height: 48px;
+      background: #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #a0aec0;
+    }
+    .tool-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #2b6cb0;
+    }
+    .tool-desc {
+      font-size: 0.98rem;
+      color: #4a5568;
+      margin-bottom: 0.7rem;
+      min-height: 40px;
+    }
+    .tool-category {
+      background: #bee3f8;
+      color: #2b6cb0;
+      font-size: 0.85rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 12px;
+      margin-bottom: 0.7rem;
+      display: inline-block;
+    }
+    .tool-link {
+      margin-top: auto;
+      background: #4299e1;
+      color: #fff;
+      padding: 0.5rem 1.1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+      display: inline-block;
+    }
+    .tool-link:hover {
+      background: #2b6cb0;
+    }
+    .add-tool-btn {
+      background: #38a169;
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: background 0.15s;
+    }
+    .add-tool-btn:hover {
+      background: #276749;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.25);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      border-radius: 10px;
+      max-width: 350px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: #718096;
+      cursor: pointer;
+    }
+    .modal-content label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #2d3748;
+    }
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .modal-content button[type="submit"] {
+      background: #4299e1;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .modal-content button[type="submit"]:hover {
+      background: #2b6cb0;
+    }
+    /* Contact Section */
+    .contact-section {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      max-width: 500px;
+      margin: 2rem auto 1.5rem auto;
+    }
+    .contact-section h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #2d3748;
+    }
+    .contact-section label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #2d3748;
+    }
+    .contact-section input, .contact-section textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    .contact-section button[type="submit"] {
+      background: #4299e1;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .contact-section button[type="submit"]:hover {
+      background: #2b6cb0;
+    }
+    /* Responsive Design */
+    @media (max-width: 700px) {
+      header h1 { font-size: 1.4rem; }
+      .section-title { font-size: 1.1rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      main { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>AI Tools Directory</h1>
+    <p>Discover, search, and explore the best AI tools for every need.</p>
+  </header>
+
+  <!-- Search and Filter Bar -->
+  <main>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search tools...">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Writing">Writing</option>
+        <option value="Coding">Coding</option>
+        <option value="Design">Design</option>
+        <option value="Productivity">Productivity</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <!-- AdMob Placeholder -->
+  
+      <div class="admob-placeholder">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+           crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-app-pub-5447671265360928"
+           data-ad-slot="5304013120"
+           data-ad-format="auto"></ins>
+        <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      
+    </div>
+
+    <!-- Featured Tools Section -->
+    <div class="section-title">Featured Tools</div>
+    <div class="tools-grid" id="featuredTools">
+      <!-- Featured tool cards will be inserted here by JavaScript -->
+    </div>
+
+    <!-- All Tools Section -->
+    <div class="section-title">All Tools</div>
+    <button class="add-tool-btn" id="openAddToolModal">+ Add Tool</button>
+    <div class="tools-grid" id="toolsList">
+      <!-- Tool cards will be inserted here by JavaScript -->
+    </div>
+  </main>
+
+  <!-- Add Tool Modal -->
+  <div class="modal" id="addToolModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeAddToolModal">&times;</button>
+      <h2 style="margin-bottom:1rem;">Submit a New Tool</h2>
+      <form id="addToolForm">
+        <label for="toolName">Tool Name</label>
+        <input type="text" id="toolName" required>
+        <label for="toolCategory">Category</label>
+        <select id="toolCategory" required>
+          <option value="Writing">Writing</option>
+          <option value="Coding">Coding</option>
+          <option value="Design">Design</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Other">Other</option>
+        </select>
+        <label for="toolDesc">Short Description</label>
+        <input type="text" id="toolDesc" maxlength="80" required>
+        <label for="toolLink">External Link</label>
+        <input type="url" id="toolLink" required>
+        <button type="submit">Submit Tool</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="contactName">Name</label>
+      <input type="text" id="contactName" required>
+      <label for="contactEmail">Email</label>
+      <input type="email" id="contactEmail" required>
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessage" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="contactMsg" style="margin-top:0.5rem;color:#38a169;font-size:0.98rem;"></div>
+  </section>
+
+  <footer style="text-align:center;padding:1rem 0;color:#a0aec0;font-size:0.95rem;">
+    &copy; 2024 AI Tools Directory. Made with &hearts; for the AI community.
+  </footer>
+
+  <script>
+    // ======================
+    // Tool Data (Sample)
+    // ======================
+    const tools = [
+      {
+        name: "ChatGPT",
+        desc: "Conversational AI assistant for various tasks.",
+        category: "Writing",
+        link: "https://chat.openai.com/",
+        logo: "💬",
+        featured: true
+      },
+      {
+        name: "GitHub Copilot",
+        desc: "AI-powered code completion for developers.",
+        category: "Coding",
+        link: "https://github.com/features/copilot",
+        logo: "🤖",
+        featured: true
+      },
+      {
+        name: "Canva AI",
+        desc: "Design stunning graphics with AI assistance.",
+        category: "Design",
+        link: "https://www.canva.com/ai/",
+        logo: "🎨",
+        featured: true
+      },
+      {
+        name: "Notion AI",
+        desc: "Boost productivity with smart AI features in Notion.",
+        category: "Productivity",
+        link: "https://www.notion.so/product/ai",
+        logo: "📝",
+        featured: false
+      },
+      {
+        name: "Jasper",
+        desc: "AI writing assistant for marketers and creators.",
+        category: "Writing",
+        link: "https://www.jasper.ai/",
+        logo: "✍️",
+        featured: false
+      },
+      {
+        name: "Midjourney",
+        desc: "Create amazing images from text prompts.",
+        category: "Design",
+        link: "https://www.midjourney.com/",
+        logo: "🖼️",
+        featured: false
+      },
+      {
+        name: "Tabnine",
+        desc: "AI code completion for faster development.",
+        category: "Coding",
+        link: "https://www.tabnine.com/",
+        logo: "💡",
+        featured: false
+      },
+      {
+        name: "Tome",
+        desc: "AI-powered storytelling and presentations.",
+        category: "Productivity",
+        link: "https://tome.app/",
+        logo: "📊",
+        featured: false
+      },
+      {
+        name: "OtherTool",
+        desc: "A unique AI tool for various tasks.",
+        category: "Other",
+        link: "https://example.com/",
+        logo: "✨",
+        featured: false
+      }
+    ];
+
+    // ======================
+    // Render Tool Cards
+    // ======================
+    function renderTools(toolsArr, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      toolsArr.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        card.innerHTML = `
+          <div class="tool-logo">${tool.logo || '🔧'}</div>
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-desc">${tool.desc}</div>
+          <div class="tool-category">${tool.category}</div>
+          <a class="tool-link" href="${tool.link}" target="_blank" rel="noopener">Visit Site</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Initial Render
+    function renderAll() {
+      // Featured tools
+      renderTools(tools.filter(t => t.featured), 'featuredTools');
+      // All tools
+      renderTools(tools, 'toolsList');
+    }
+    renderAll();
+
+    // ======================
+    // Search & Filter Logic
+    // ======================
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+
+    function filterTools() {
+      const search = searchInput.value.toLowerCase();
+      const category = categoryFilter.value;
+      let filtered = tools.filter(tool => {
+        const matchesSearch = tool.name.toLowerCase().includes(search) || tool.desc.toLowerCase().includes(search);
+        const matchesCategory = category === 'all' || tool.category === category;
+        return matchesSearch && matchesCategory;
+      });
+      renderTools(filtered, 'toolsList');
+    }
+    searchInput.addEventListener('input', filterTools);
+    categoryFilter.addEventListener('change', filterTools);
+
+    // ======================
+    // Add Tool Modal Logic
+    // ======================
+    const addToolModal = document.getElementById('addToolModal');
+    const openAddToolModal = document.getElementById('openAddToolModal');
+    const closeAddToolModal = document.getElementById('closeAddToolModal');
+    const addToolForm = document.getElementById('addToolForm');
+
+    openAddToolModal.onclick = () => { addToolModal.style.display = 'flex'; };
+    closeAddToolModal.onclick = () => { addToolModal.style.display = 'none'; };
+    window.onclick = (e) => {
+      if (e.target === addToolModal) addToolModal.style.display = 'none';
+    };
+    addToolForm.onsubmit = function(e) {
+      e.preventDefault();
+      // Get form values
+      const name = document.getElementById('toolName').value.trim();
+      const category = document.getElementById('toolCategory').value;
+      const desc = document.getElementById('toolDesc').value.trim();
+      const link = document.getElementById('toolLink').value.trim();
+      // Add new tool to the list (not persistent)
+      tools.push({
+        name,
+        desc,
+        category,
+        link,
+        logo: '🔧', // Placeholder logo
+        featured: false
+      });
+      renderAll();
+      addToolModal.style.display = 'none';
+      addToolForm.reset();
+    };
+
+    // ======================
+    // Contact Form Logic
+    // ======================
+    const contactForm = document.getElementById('contactForm');
+    const contactMsg = document.getElementById('contactMsg');
+    contactForm.onsubmit = function(e) {
+      e.preventDefault();
+      // For demo: just show a message (no backend)
+      contactMsg.textContent = 'Thank you for contacting us!';
+      contactForm.reset();
+      setTimeout(() => { contactMsg.textContent = ''; }, 4000);
+    };
+  </script>
+</body>
+</html> 
